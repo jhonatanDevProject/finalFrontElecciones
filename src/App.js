@@ -16,6 +16,7 @@ function App() {
         <Route path="/" element={<IndexPage/>}></Route>
         <Route path="/login" element={<LoginPage/>}></Route>
         <Route path="/home" element={<MenuVertical/>}></Route>
+        <Route path="/home/:username" element={<MenuVertical/>}></Route>
         <Route path='/comiteElectoral' element={<AsignacionComite/>}/>
         <Route path="/ListaVocalesComite/:id" component={ListaVocalesComite} />
         <Route path='/EleccionesComponent' element={<EleccionesComponent/>}/>
