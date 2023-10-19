@@ -7,6 +7,9 @@ import MenuVertical from './pages/MenuVertical';
 import AsignacionComite from './pages/AsignacionComite'
 import ListaVocalesComite from './pages/ListaVocalesComite';
 import EleccionesComponent from './pages/EleccionesComponent';
+import ActualizarEleccion from './pages/ActualizarElecciones';
+import PdfConvocatoria from './pages/pdfConvocatoria';
+
 
 
 function App() {
@@ -20,6 +23,11 @@ function App() {
         <Route path='/comiteElectoral' element={<AsignacionComite/>}/>
         <Route path="/ListaVocalesComite/:id" component={ListaVocalesComite} />
         <Route path='/EleccionesComponent' element={<EleccionesComponent/>}/>
+     
+        <Route path="/actualizarEleccion/:id" element={<ActualizarEleccion />} />
+
+        <Route path='/PdfConvocatoria/:id' element={<PdfConvocatoria/>}/>
+
       </Routes>
     </BrowserRouter>
   );

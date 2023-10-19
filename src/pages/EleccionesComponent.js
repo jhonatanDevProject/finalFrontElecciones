@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../css/MenuVertical.css";
 import axios from 'axios';
 
 const EleccionesComponent = () => {
