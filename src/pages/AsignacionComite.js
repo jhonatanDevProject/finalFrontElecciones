@@ -57,7 +57,7 @@ function AsignacionComite() {
     verificarExistenciaComite(COD_COMITE);
 
     // Realiza la asignación solo si el comité existe
-    if (existeComite) {
+    if (!existeComite) {
       // Realizar una solicitud PUT para asociar el comité a la elección
       axios
         .put(`http://localhost:8000/asignar-comite/${COD_ELECCION}`)
