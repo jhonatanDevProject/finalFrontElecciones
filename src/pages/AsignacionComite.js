@@ -68,6 +68,7 @@ function AsignacionComite() {
   
     // Realiza la asignación solo si el comité existe
     if (!existeComite) {
+      //elecciones/asignar_comite/  AQUI CAMBIAR RUTA----------------ruta asi cambiar
       // Realizar una solicitud PUT para asociar el comité a la elección
       axios
         .put(`http://localhost:8000/elecciones/asignar_comite/${COD_ELECCION}`)
