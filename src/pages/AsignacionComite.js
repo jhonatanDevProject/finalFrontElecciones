@@ -64,7 +64,7 @@ function AsignacionComite() {
     // Antes de asociar el comité, verifica si existe
     verificarExistenciaComite(COD_COMITE);
 
-    console.log(COD_ELECCION);
+    
   
     // Realiza la asignación solo si el comité existe
     if (!existeComite) {
