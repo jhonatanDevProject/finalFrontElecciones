@@ -12,12 +12,17 @@ function AsignacionComite() {
   const [codComite, setCodComite] = useState(null);
   const [existeComite, setExisteComite] = useState(false); // Estado para verificar la existencia del comité
 
+  useEffect(() => {
+    fetchElecciones();
+  }, []);
+
   // Función para verificar la existencia del comité
   const verificarExistenciaComite = (codComite) => {
     // Realiza una solicitud GET al servidor de Laravel para verificar la existencia del comité
     axios
       .get(`http://localhost:8000/verificar-comite/${codComite}`)
       .then((response) => {
+        
         // La respuesta debe ser un objeto JSON con el campo "existeComite"
         if (response.data.existeComite) {
           // Si el comité no existe, establece setExisteComite en true
@@ -35,38 +40,44 @@ function AsignacionComite() {
   };
 
   
-  
-  
-  
-  
 
-  useEffect(() => {
-    // Realiza una solicitud GET al servidor para obtener la lista de elecciones
-    axios
-      .get("http://localhost:8000/elecciones")
-      .then((response) => {
-        setproceso(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener la lista de elecciones:", error);
-      });
-  }, []);
+
+  const fetchElecciones = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/elecciones_index'); // Reemplaza con la URL correcta
+      const data = response.data;
+
+      if (Array.isArray(data.data)) { // Asegúrate de usar la clave correcta para los datos
+        setproceso(data.data);
+      } else {
+        console.error('La respuesta no contiene un arreglo de elecciones válido');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
+  
 
   const handleAsociarClick = (COD_ELECCION, COD_COMITE) => {
     // Antes de asociar el comité, verifica si existe
     verificarExistenciaComite(COD_COMITE);
 
+    
+  
     // Realiza la asignación solo si el comité existe
     if (!existeComite) {
+      //elecciones/asignar_comite/  AQUI CAMBIAR RUTA----------------ruta asi cambiar
       // Realizar una solicitud PUT para asociar el comité a la elección
       axios
-        .put(`http://localhost:8000/asignar-comite/${COD_ELECCION}`)
+        .put(`http://localhost:8000/elecciones/asignar_comite/${COD_ELECCION}`)
         .then((responseComite) => {
           console.log("Asignación de comité exitosa:", responseComite.data);
 
           // Luego, realizar una solicitud POST para asignar vocales al comité
           axios
-            .post(`http://localhost:8000/asignar-vocales/${COD_COMITE}`)
+            .post(`http://localhost:8000/asignar_vocales/${COD_COMITE}`)
             .then((responseVocales) => {
               console.log("Asignación de vocales exitosa:", responseVocales.data);
               setCodComite(COD_COMITE);
@@ -116,20 +127,20 @@ function AsignacionComite() {
           </thead>
           <tbody className="BodyComite">
             {proceso.map((elemento) => (
-              <tr key={elemento.CODELECCION}>
-                <td>{elemento.CODELECCION}</td>
-                <td>{elemento.MOTIVOELECCION}</td>
+              <tr key={elemento.COD_ELECCION}>
+                <td>{elemento.COD_ELECCION}</td>
+                <td>{elemento.MOTIVO_ELECCION}</td>
                 <td>
                   <button
                     className="botonComite1"
                     class="custom-btn btn-2"
                     onClick={() =>
-                      handleAsociarClick(elemento.CODELECCION, elemento.CODCOMITE)
+                      handleAsociarClick(elemento.COD_ELECCION, elemento.COD_COMITE)
                     }
                   >
                     Asignar
                   </button>{" "}
-                  <button class="custom-btn btn-3" onClick={() => handleVerListaClick(elemento.CODCOMITE)}>Ver Lista</button>
+                  <button class="custom-btn btn-3" onClick={() => handleVerListaClick(elemento.COD_COMITE)}>Ver Lista</button>
                 </td>
               </tr>
             ))}

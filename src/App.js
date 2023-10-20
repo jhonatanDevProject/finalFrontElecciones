@@ -10,6 +10,9 @@ import EleccionesComponent from './pages/EleccionesComponent';
 import ActualizarEleccion from './pages/ActualizarElecciones';
 import PdfConvocatoria from './pages/pdfConvocatoria';
 
+import AsociacionComitElec from './pages/pruevas/AsociacionComitElec ';
+
+
 
 
 function App() {
@@ -21,12 +24,17 @@ function App() {
         <Route path="/home" element={<MenuVertical/>}></Route>
         <Route path="/home/:username" element={<MenuVertical/>}></Route>
         <Route path='/comiteElectoral' element={<AsignacionComite/>}/>
-        <Route path="/ListaVocalesComite/:id" component={ListaVocalesComite} />
+        <Route path="/ListaVocalesComite/:id" element={<ListaVocalesComite/>} />
         <Route path='/EleccionesComponent' element={<EleccionesComponent/>}/>
      
         <Route path="/actualizarEleccion/:id" element={<ActualizarEleccion />} />
 
         <Route path='/PdfConvocatoria/:id' element={<PdfConvocatoria/>}/>
+
+        <Route
+          exact path="/admin/AsociacionComitElec"
+          element={<AsociacionComitElec />}
+        />
 
       </Routes>
     </BrowserRouter>
